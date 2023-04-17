@@ -13,10 +13,12 @@ function onStartClick(evt){
     timerId = setInterval(()=>{
     body.style.background = getRandomHexColor();
 },1000);
+startBtn.disabled = true;
 };
 
 function onStopClick(evt){
-   clearInterval(timerId)
+   clearInterval(timerId);
+   startBtn.disabled =false;
 };
 
 
