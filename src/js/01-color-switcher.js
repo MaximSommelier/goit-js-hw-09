@@ -18,7 +18,7 @@ function onStartClick(evt){
 function onStopClick(evt){
    clearInterval(timerId)
 };
-// console.log(colorBody);
+
 
 
 
