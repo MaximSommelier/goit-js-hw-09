@@ -11,20 +11,6 @@ const seconds = document.querySelector('[data-seconds]');
 
 // startBtn.addEventListener('click', startCountdown);
 
-function convertMs(ms) {
-    const second = 1000;
-    const minute = second * 60;
-    const hour = minute * 60;
-    const day = hour * 24;
-  
-    const days = Math.floor(ms / day);
-    const hours = Math.floor((ms % day) / hour);
-    const minutes = Math.floor(((ms % day) % hour) / minute);
-    const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-  
-    return { days, hours, minutes, seconds };
-  }
-
 const options = {
     enableTime: true,
     time_24hr: true,
@@ -34,9 +20,25 @@ const options = {
       console.log(selectedDates[0]);
     },
   };
+   
 
 const fp = flatpickr(dateTime, options);
 
+
+function convertMs(ms) {
+        const second = 1000;
+        const minute = second * 60;
+        const hour = minute * 60;
+        const day = hour * 24;
+        const days = Math.floor(ms / day);
+        const hours = Math.floor((ms % day) / hour);
+        const minutes = Math.floor(((ms % day) % hour) / minute);
+        const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+      
+        return { days, hours, minutes, seconds };
+      };
+    
+    
 
 
 // startBtn.disabled = true;
