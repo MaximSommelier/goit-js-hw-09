@@ -16,3 +16,23 @@ img {
   display: block;
   max-width: 100%;
 }
+
+#datetime-picker {
+  background-color: gray;
+  border-color: blueviolet;
+  border: 2px, solid;
+}
+
+.timer {
+  display: flex;
+}
+
+.label {
+margin-right: 10px;
+}
+
+span {
+  color: red;
+}
+
+
