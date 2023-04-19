@@ -51,11 +51,11 @@ startBtn.addEventListener('click', () =>{
     onClose(selectedDates) {
       console.log(selectedDates[0].getTime());
 
-      if (selectedDates[0].getTime() <= defaultDate.getTime()){
+      if (selectedDates[0].getTime() <= Date.now()){
         startBtn.disabled = true;
         Notiflix.Notify.failure('Please choose a date in the future');
       }
-      return
+      startBtn.disabled = false;
     },
   };
 
