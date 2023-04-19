@@ -13,24 +13,14 @@ startBtn.addEventListener('click', () =>{
   reverseTimer.start();
 });
 
-const options = {
-    enableTime: true,
-    time_24hr: true,
-    defaultDate: new Date(),
-    minuteIncrement: 1,
-    onClose(selectedDates) {
-      console.log(selectedDates[0]);
-    },
-  };
-  
-const fp = flatpickr(dateTime, options);
-const startTime = options.selectedDates[0];
+  class ReverseTimer  {
+    constructor ({onTick}){
+     this.inrevalId = null;
+     this.isActive = false; 
+     this.onTick = onTick;
+    }
 
-const reverseTimer = {
-  inrevalId: null,
-  isActive: false,
-
-  start (){
+    start (){
     if (this.isActive){
       return;
     }
@@ -39,17 +29,37 @@ const reverseTimer = {
      const currentTime = Date.now();
      const ms = startTime - currentTime;
      const { days, hours, minutes, seconds } = addLeadingZero(convertMs(ms));
-
+     updateReverseTimer(ms);
       },1000);
-    },
+    }
+
     stop (){
       if(currentTime === startTime){
         clearInterval(this.inrevalId);
       this.isActive = false;
+      updateReverseTimer(0);
       }
+      return;
+    }
+  };
+
+  const options = {
+    enableTime: true,
+    time_24hr: true,
+    defaultDate: new Date(),
+    minuteIncrement: 1,
+    onClose(selectedDates) {
+      console.log(selectedDates[0]);
     },
-};
-reverseTimer.stop();
+  };
+
+const fp = flatpickr(dateTime, options);
+const startTime = options.selectedDates[0];
+
+const timer = new ReverseTimer({
+  onTick: updateReverseTimer});
+
+ReverseTimer.stop();
 
 function updateReverseTimer ({ days, hours, minutes, seconds }) {
   days.textContent = `${days}`;
