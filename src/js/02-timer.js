@@ -64,7 +64,7 @@ class ReverseTimer  {
       return;
     }
     this.isActive = true;
-    this.inrevalId = setInterval (() =>{
+    this.intervalId = setInterval (() =>{
      const currentTime = Date.now();
      const timeLeft = startTime - currentTime;
      const { days, hours, minutes, seconds } = addLeadingZero(convertMs(timeLeft));
@@ -82,14 +82,14 @@ class ReverseTimer  {
     }
   };
 
+  
+const timer = new ReverseTimer({
+  onTick: updateReverseTimer});
+
   startBtn.addEventListener('click', () =>{
     timer.start();
     timer.stop();
   });
-
-  
-const timer = new ReverseTimer({
-  onTick: updateReverseTimer});
 
 
 
