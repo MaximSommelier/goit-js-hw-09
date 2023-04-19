@@ -3,11 +3,11 @@ import "flatpickr/dist/flatpickr.min.css";
 import Notiflix from 'notiflix';
 
 const dateTime = document.querySelector("#datetime-picker");
-const startBtn = document.querySelector('button[data-start]');
-const days = document.querySelector('[data-days]');
-const hours = document.querySelector('[data-hours]');
-const minutes = document.querySelector('[data-minutes]');
-const seconds = document.querySelector('[data-seconds]');
+const startBtn = document.querySelector('[data-start]');
+const daysEl = document.querySelector('[data-days]');
+const hoursEl = document.querySelector('[data-hours]');
+const minutesEl = document.querySelector('[data-minutes]');
+const secondsEl = document.querySelector('[data-seconds]');
 
 const options = {
   enableTime: true,
@@ -29,10 +29,10 @@ const datePicker = flatpickr(dateTime, options);
 const startTime = datePicker.selectedDates[0].getTime();
 
 function updateReverseTimer ({ days, hours, minutes, seconds }) {
-    days.textContent = `${days}`;
-    hours.textContent = `${hours}`;
-    minutes.textContent = `${minutes}`;
-    seconds.textContent = `${seconds}`;
+    daysEl.textContent = `${days}`;
+    hoursEl.textContent = `${hours}`;
+    minutesEl.textContent = `${minutes}`;
+    secondsEl.textContent = `${seconds}`;
   };
   
   function addLeadingZero(value) {
@@ -67,8 +67,7 @@ class ReverseTimer  {
     this.intervalId = setInterval (() =>{
      const currentTime = Date.now();
      const timeLeft = startTime - currentTime;
-     const { days, hours, minutes, seconds } = addLeadingZero(convertMs(timeLeft));
-     updateReverseTimer({ days, hours, minutes, seconds });
+     updateReverseTimer(addLeadingZero(convertMs(timeLeft)));
       },1000);
     }
 
