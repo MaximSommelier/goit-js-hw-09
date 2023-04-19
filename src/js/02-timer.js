@@ -68,12 +68,12 @@ class ReverseTimer  {
      const currentTime = Date.now();
      const timeLeft = startTime - currentTime;
      const { days, hours, minutes, seconds } = addLeadingZero(convertMs(timeLeft));
-     updateReverseTimer();
+     updateReverseTimer({ days, hours, minutes, seconds });
       },1000);
     }
 
     stop (){
-      if(this.currentTime === startTime){
+      if(this.currentTime === this.startTime){
         clearInterval(this.inrevalId);
       this.isActive = false;
       updateReverseTimer(0);
