@@ -3,14 +3,14 @@ import "flatpickr/dist/flatpickr.min.css";
 import Notiflix from 'notiflix';
 
 const dateTime = document.querySelector("#datetime-picker");
-const startBtn = document.querySelector('[data-start]');
+const startBtn = document.querySelector('button[data-start]');
 const days = document.querySelector('[data-days]');
 const hours = document.querySelector('[data-hours]');
 const minutes = document.querySelector('[data-minutes]');
 const seconds = document.querySelector('[data-seconds]');
 
 startBtn.addEventListener('click', () =>{
-  reverseTimer.start();
+  timer.start();
 });
 
   class ReverseTimer  {
@@ -49,12 +49,18 @@ startBtn.addEventListener('click', () =>{
     defaultDate: new Date(),
     minuteIncrement: 1,
     onClose(selectedDates) {
-      console.log(selectedDates[0]);
+      console.log(selectedDates[0].getTime());
+
+      if (selectedDates[0].getTime() <= defaultDate.getTime()){
+        startBtn.disabled = true;
+        Notiflix.Notify.failure('Please choose a date in the future');
+      }
+      return
     },
   };
 
-const fp = flatpickr(dateTime, options);
-const startTime = options.selectedDates[0];
+flatpickr(dateTime, options);
+const startTime = options.selectedDates[0].getTime();
 
 const timer = new ReverseTimer({
   onTick: updateReverseTimer});
@@ -85,8 +91,7 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 };
 
-// startBtn.disabled = true;
-// Notiflix.Notify.failure('Please choose a date in the future');
+// 
 
 
 
