@@ -11,7 +11,14 @@ let promiseCounter = 0;
 function onSubmit (evt){
   evt.preventDefault();
   setTimeout(() => {
-    intervalOfPromises();
+    intervalOfPromises(
+    createPromise()
+    .then(({ position, delay }) => {
+      Notiflix.Notify.success('✅ Fulfilled promise ${position} in ${delay}ms');
+    })
+    .catch(({ position, delay }) => {
+      Notiflix.Notify.warning('❌ Rejected promise ${position} in ${delay}ms');
+    }),);
     console.log(`Timeout`);
   }, delay);
 }
@@ -27,22 +34,16 @@ function intervalOfPromises(){
   return promiseCounter
 }
 
-// function createPromise(position, delay) {
-//   const shouldResolve = Math.random() > 0.3;
+function createPromise(position, delay) {
+  return new Promise((resolve ,Reject) => {
+    const shouldResolve = Math.random() > 0.3;
   
-//   if (shouldResolve) {
-//     // Fulfill
-//   } else {
-//     // Reject
-//   }
-// }
+    if (shouldResolve) {
+      Notiflix.Notify.success('✅ Fulfilled promise ${position} in ${delay}ms');
+    } else {
+      Notiflix.Notify.warning('❌ Rejected promise ${position} in ${delay}ms');
+    }
+  })
+}
 
-// createPromise()
-//   .then(({ position, delay }) => {
-//     console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-//     Notiflix.Notify.success('✅ Fulfilled promise ${position} in ${delay}ms');
-//   })
-//   .catch(({ position, delay }) => {
-//     console.log(`❌ Rejected promise ${position} in ${delay}ms`);
-//     Notiflix.Notify.warning('❌ Rejected promise ${position} in ${delay}ms');
-//   });
+
