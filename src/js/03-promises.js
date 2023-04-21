@@ -5,10 +5,31 @@ const step = document.querySelector('input[name="step"]')
 const amount = document.querySelector('input[name="amount"]')
 const form = document.querySelector('.form');
 
-// form.addEventListener('submit', createPromise);
+form.addEventListener('submit', onSubmit);
+let promiseCounter = 0;
+
+function onSubmit (evt){
+  evt.preventDefault();
+  setTimeout(() => {
+    intervalOfPromises();
+    console.log(`Timeout`);
+  }, delay);
+}
+
+function intervalOfPromises(){
+  timerId = setInterval(() => {
+    if (amount === promiseCounter){
+      return
+    }
+    console.log(`Interval`);
+    promiseCounter +=1;
+  }, step);
+  return promiseCounter
+}
 
 // function createPromise(position, delay) {
 //   const shouldResolve = Math.random() > 0.3;
+  
 //   if (shouldResolve) {
 //     // Fulfill
 //   } else {
