@@ -1,14 +1,14 @@
 import Notiflix from 'notiflix';
 
-let delay = document.querySelector('input[name="delay"]')
-let step = document.querySelector('input[name="step"]')
-let amount = document.querySelector('input[name="amount"]')
+// let delay = document.querySelector('input[name="delay"]')
+// let step = document.querySelector('input[name="step"]')
+// let amount = document.querySelector('input[name="amount"]')
 const form = document.querySelector('.form');
 
-delay = Number(delay.value);
-step = Number(step.value);
-amount = Number(amount.value);
-
+const delay = Number(form.delay.value);
+const step = Number(form.step.value);
+const amount = Number(form.amount.value);
+// console.log(amount);
 
 form.addEventListener('submit', onSubmit);
 
