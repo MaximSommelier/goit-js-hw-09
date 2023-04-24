@@ -28,36 +28,36 @@ const options = {
 const datePicker = flatpickr(dateTime, options);
 const startTime = datePicker.selectedDates[0].getTime();
 
-function updateReverseTimer ({ days, hours, minutes, seconds }) {
-    daysEl.textContent = `${days}`;
-    hoursEl.textContent = `${hours}`;
-    minutesEl.textContent = `${minutes}`;
-    secondsEl.textContent = `${seconds}`;
-  };
-  
-  function addLeadingZero(value) {
-  return String(value).padStart(2, '0');
-  };
-  
-  function convertMs(ms) {
-    const second = 1000;
-    const minute = second * 60;
-    const hour = minute * 60;
-    const day = hour * 24;
-    const days = Math.floor(ms / day);
-    const hours = Math.floor((ms % day) / hour);
-    const minutes = Math.floor(((ms % day) % hour) / minute);
-    const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-  
-    return { days, hours, minutes, seconds };
-  };
-        
 class ReverseTimer  {
     constructor ({onTick}){
      this.inrevalId = null;
      this.isActive = false; 
      this.onTick = onTick;
     }
+
+    convertMs(ms) {
+      const second = 1000;
+      const minute = second * 60;
+      const hour = minute * 60;
+      const day = hour * 24;
+      const days = Math.floor(ms / day);
+      const hours = Math.floor((ms % day) / hour);
+      const minutes = Math.floor(((ms % day) % hour) / minute);
+      const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+    
+      return { days, hours, minutes, seconds };
+    };
+
+    addLeadingZero(value) {
+      return String(value).padStart(2, '0');
+      };
+
+    updateReverseTimer ({ days, hours, minutes, seconds }) {
+      this.daysEl.textContent = `${days}`;
+      this.hoursEl.textContent = `${hours}`;
+      this.minutesEl.textContent = `${minutes}`;
+      this.secondsEl.textContent = `${seconds}`;
+      };
 
     start (){
     if (this.isActive){
@@ -81,14 +81,14 @@ class ReverseTimer  {
     }
   };
 
+  const timer = new ReverseTimer({
+    onTick: updateReverseTimer});
   
-const timer = new ReverseTimer({
-  onTick: updateReverseTimer});
+    startBtn.addEventListener('click', () =>{
+      timer.start();
+      timer.stop();
+    });
 
-  startBtn.addEventListener('click', () =>{
-    timer.start();
-    timer.stop();
-  });
 
 
 
