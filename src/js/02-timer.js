@@ -20,13 +20,21 @@ const options = {
     if (selectedDates[0].getTime() <= Date.now()){
       startBtn.disabled = true;
       Notiflix.Notify.failure('Please choose a date in the future');
-    }
+    } else {
     startBtn.disabled = false;
+    const timer = new ReverseTimer({ days, hours, minutes, seconds });
+    timer({onTick:updateReverseTimer})
+    }
   },
 };
 
 const datePicker = flatpickr(dateTime, options);
 const startTime = datePicker.selectedDates[0].getTime();
+
+startBtn.addEventListener('click', () =>{
+  timer.start();
+  timer.stop();
+});
 
 class ReverseTimer  {
     constructor ({onTick}){
@@ -53,10 +61,10 @@ class ReverseTimer  {
       };
 
     updateReverseTimer ({ days, hours, minutes, seconds }) {
-      this.daysEl.textContent = `${days}`;
-      this.hoursEl.textContent = `${hours}`;
-      this.minutesEl.textContent = `${minutes}`;
-      this.secondsEl.textContent = `${seconds}`;
+      daysEl.textContent = `${this.addLeadingZero(days)}`;
+      hoursEl.textContent = `${this.addLeadingZero(hours)}`;
+      minutesEl.textContent = `${this.addLeadingZero(minutes)}`;
+      secondsEl.textContent = `${this.addLeadingZero(seconds)}`;
       };
 
     start (){
@@ -64,6 +72,7 @@ class ReverseTimer  {
       return;
     }
     this.isActive = true;
+    const startTime = datePicker.selectedDates[0].getTime();
     this.intervalId = setInterval (() =>{
      const currentTime = Date.now();
      const timeLeft = startTime - currentTime;
@@ -80,14 +89,8 @@ class ReverseTimer  {
       return;
     }
   };
-
-  const timer = new ReverseTimer({
-    onTick: updateReverseTimer});
   
-    startBtn.addEventListener('click', () =>{
-      timer.start();
-      timer.stop();
-    });
+    
 
 
 
