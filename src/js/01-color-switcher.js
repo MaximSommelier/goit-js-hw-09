@@ -13,6 +13,9 @@ function onStartClick(evt){
     timerId = setInterval(()=>{
     body.style.background = getRandomHexColor();
 },1000);
+if (!timerId){
+  startBtn.disabled =false;
+}
 startBtn.disabled = true;
 };
 
