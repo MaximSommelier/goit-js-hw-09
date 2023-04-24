@@ -6,44 +6,28 @@ const amount = document.querySelector('input[name="amount"]')
 const form = document.querySelector('.form');
 
 form.addEventListener('submit', onSubmit);
-let promiseCounter = 0;
 
 function onSubmit (evt){
   evt.preventDefault();
-  setTimeout(() => {
-    intervalOfPromises(
-    createPromise()
-    .then(({ position, delay }) => {
-      Notiflix.Notify.success('✅ Fulfilled promise ${position} in ${delay}ms');
-    })
-    .catch(({ position, delay }) => {
-      Notiflix.Notify.warning('❌ Rejected promise ${position} in ${delay}ms');
-    }),);
-    console.log(`Timeout`);
-  }, delay);
-}
-
-function intervalOfPromises(){
-  timerId = setInterval(() => {
-    if (amount === promiseCounter){
-      return
-    }
-    console.log(`Interval`);
-    promiseCounter +=1;
-  }, step);
-  return promiseCounter
+  for (let i = 1; i < amount; i += 1) {
+    createPromise(i, delay)
+    .then(value => Notiflix.Notify.success(value))
+    .catch(value => Notiflix.Notify.warning(value))
+  }
 }
 
 function createPromise(position, delay) {
-  return new Promise((resolve ,Reject) => {
+  return new Promise((resolve, reject) => {
     const shouldResolve = Math.random() > 0.3;
-  
+
+    setTimeout(() => {
     if (shouldResolve) {
-      Notiflix.Notify.success('✅ Fulfilled promise ${position} in ${delay}ms');
+      resolve(`✅ Fulfilled promise ${position} in ${delay}ms`);
     } else {
-      Notiflix.Notify.warning('❌ Rejected promise ${position} in ${delay}ms');
+      reject(`❌ Rejected promise ${position} in ${delay}ms`);
     }
-  })
+  }, delay);
+});
 }
 
 
