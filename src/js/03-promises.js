@@ -15,7 +15,7 @@ form.addEventListener('submit', onSubmit);
 function onSubmit (evt){
   evt.preventDefault();
   for (let i = 0; i < amount; i += 1) {
-    createPromise(i, delay + 1 * step)
+    createPromise(i, delay + (1 * step))
     .then(value => Notiflix.Notify.success(value))
     .catch(value => Notiflix.Notify.warning(value))
   }
