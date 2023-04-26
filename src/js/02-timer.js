@@ -22,8 +22,7 @@ const options = {
       Notiflix.Notify.failure('Please choose a date in the future');
     } else {
     startBtn.disabled = false;
-    const timer = new ReverseTimer({ days, hours, minutes, seconds });
-    timer({onTick:updateReverseTimer})
+    const timer = new ReverseTimer({ daysEl, hoursEl, minutesEl, secondsEl });
     }
   },
 };
