@@ -30,11 +30,10 @@ const options = {
 const datePicker = flatpickr(dateTime, options);
 const startTime = datePicker.selectedDates[0].getTime();
 
-startBtn.addEventListener('click', () =>{
+startBtn.addEventListener('click', (evt) =>{
   timer.start();
   timer.stop();
 });
-
 class ReverseTimer  {
     constructor ({onTick}){
      this.inrevalId = null;
@@ -88,6 +87,8 @@ class ReverseTimer  {
       return;
     }
   };
+
+  
   
     
 
